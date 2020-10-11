@@ -20,7 +20,6 @@ class App extends React.Component {
     }
 
     get axios() {
-        console.log(process.env.REACT_APP_DEV_API_URL);
         const axiosBase = require('axios');
         return axiosBase.create({
             baseURL: process.env.REACT_APP_DEV_API_URL,
@@ -46,24 +45,38 @@ class App extends React.Component {
     }
 
     handleInputTitleChange(e) {
-        const newInputs = Object.assign({},this.state.createFormInputs)
+        const newInputs = Object.assign({}, this.state.createFormInputs)
         newInputs["title"] = e.target.value;
         this.setState({
-            createFormInputs:  newInputs
+            createFormInputs: newInputs
         });
     }
 
     handleInputContentChange(e) {
-        const newInputs = Object.assign({},this.state.createFormInputs)
+        const newInputs = Object.assign({}, this.state.createFormInputs)
         newInputs["content"] = e.target.value;
         this.setState({
-            createFormInputs:  newInputs
+            createFormInputs: newInputs
         });
     }
 
     handlePostSubmit(e) {
         e.preventDefault();
-        console.log(e.target.value);
+        if (this.state.createFormInputs["title"] && this.state.createFormInputs["content"]) {
+            this.axios.post("/posts", {
+                post: this.state.createFormInputs,
+            })
+                .then(res => {
+                    const posts = this.state.posts.slice();
+                    posts.push(res["data"]);
+                    this.setState({
+                        posts: posts
+                    });
+                })
+                .catch(data => {
+                    console.log(data)
+                });
+        }
     }
 
     render() {
