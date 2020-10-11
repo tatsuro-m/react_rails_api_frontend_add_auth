@@ -9,6 +9,8 @@ function PostList(props) {
                     <Post
                         title={post.title}
                         content={post.content}
+                        id={post.id}
+                        onDelete={props.onDelete}
                     />
                 </Grid>);
         });

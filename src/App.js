@@ -17,6 +17,7 @@ class App extends React.Component {
         this.handleInputTitleChange = this.handleInputTitleChange.bind(this);
         this.handleInputContentChange = this.handleInputContentChange.bind(this);
         this.handlePostSubmit = this.handlePostSubmit.bind(this);
+        this.handlePostDelete = this.handlePostDelete.bind(this);
     }
 
     get axios() {
@@ -79,6 +80,25 @@ class App extends React.Component {
         }
     }
 
+    handlePostDelete(id, e) {
+        e.preventDefault();
+        this.axios.delete(`/posts/${id}`)
+            .then(res => {
+                const targetIndex = this.state.posts.findIndex(post => {
+                    return post["id"] === res["data"]["id"]
+                });
+                const posts = this.state.posts.slice();
+                posts.splice(targetIndex, 1);
+
+                this.setState({
+                    posts: posts
+                });
+            })
+            .catch(data => {
+                console.log(data);
+            });
+    }
+
     render() {
         return (
             <div className="App">
@@ -92,6 +112,7 @@ class App extends React.Component {
                     <Box p={3}>
                         <PostList
                             posts={this.state.posts}
+                            onDelete={this.handlePostDelete}
                         />
                     </Box>
                 </Box>

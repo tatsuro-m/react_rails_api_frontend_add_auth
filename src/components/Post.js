@@ -20,7 +20,15 @@ function Post(props) {
             <CardActions>
                 <Button size="small" variant="contained">DETAIL</Button>
                 <Button size="small" variant="contained" color="primary">EDIT</Button>
-                <Button size="small" variant="contained" color="secondary" startIcon={<DeleteIcon/>}>DELETE</Button>
+                <Button
+                    size="small"
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<DeleteIcon/>}
+                    onClick={(e) => props.onDelete(props.id, e)}
+                >
+                    DELETE
+                </Button>
             </CardActions>
         </Card>
     );
