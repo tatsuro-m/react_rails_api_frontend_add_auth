@@ -71,7 +71,11 @@ class App extends React.Component {
                     const posts = this.state.posts.slice();
                     posts.push(res["data"]);
                     this.setState({
-                        posts: posts
+                        posts: posts,
+                        createFormInputs: {
+                            title: "",
+                            content: "",
+                        },
                     });
                 })
                 .catch(data => {
