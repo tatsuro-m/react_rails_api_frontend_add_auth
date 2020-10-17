@@ -117,7 +117,7 @@ class App extends React.Component {
                 .then(results => {
                     const posts = this.state.posts.slice();
                     const index = posts.findIndex(post => post["id"] === id);
-                    posts[index] = results["data"];
+                    posts.splice(index, 1, results["data"]);
 
                     this.setState({
                         posts: posts
