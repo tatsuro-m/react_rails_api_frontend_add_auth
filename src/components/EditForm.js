@@ -13,7 +13,7 @@ function EditForm(props) {
                         <TextField
                             label="title"
                             id="title"
-                            value={props.inputs["title"] || props.post["title"]}
+                            value={props.inputs["title"]}
                             onChange={props.onChangeTitle}
                         />
                     </Grid>
@@ -21,7 +21,7 @@ function EditForm(props) {
                         <TextField
                             label="content"
                             id="content"
-                            value={props.inputs["content"] || props.post["content"]}
+                            value={props.inputs["content"]}
                             onChange={props.onChangeContent}
                         />
                     </Grid>
