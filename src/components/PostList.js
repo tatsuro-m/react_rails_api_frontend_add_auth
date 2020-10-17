@@ -3,23 +3,21 @@ import Post from "./Post";
 import Grid from "@material-ui/core/Grid";
 
 function PostList(props) {
-        const posts = props.posts.map((post) => {
-            return (
-                <Grid item xs={4} key={post.id}>
-                    <Post
-                        title={post.title}
-                        content={post.content}
-                        id={post.id}
-                        onDelete={props.onDelete}
-                    />
-                </Grid>);
-        });
-
+    const posts = props.posts.map((post) => {
         return (
-            <Grid container spacing={4}>
-                {posts}
-            </Grid>
-        );
+            <Grid item xs={4} key={post.id}>
+                <Post
+                    post={post}
+                    onDelete={props.onDelete}
+                />
+            </Grid>);
+    });
+
+    return (
+        <Grid container spacing={4}>
+            {posts}
+        </Grid>
+    );
 }
 
 export default PostList;
