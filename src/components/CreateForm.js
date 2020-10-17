@@ -24,7 +24,7 @@ function CreateForm(props) {
                 endIcon={<SendIcon/>}
                 onClick={props.onSubmit}
             >
-                Send
+                CREATE
             </Button>
         </form>
     )

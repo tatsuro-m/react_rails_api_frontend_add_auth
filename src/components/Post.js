@@ -6,19 +6,50 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from '@material-ui/icons/Delete';
 import PostModal from "./PostModal";
+import EditForm from "./EditForm";
 
 class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             modalOpen: false,
+            editFormOpen: false,
+            editFormInputs: {
+                title: "",
+                content: "",
+            },
         }
         this.handleToggleModalOpen = this.handleToggleModalOpen.bind(this);
+        this.handleToggleEditFormOpen = this.handleToggleEditFormOpen.bind(this);
+        this.handleInputTitleChange = this.handleInputTitleChange.bind(this);
+        this.handleInputContentChange = this.handleInputContentChange.bind(this);
     }
 
 
     handleToggleModalOpen() {
         this.setState({modalOpen: !this.state.modalOpen});
+    }
+
+    handleInputTitleChange(e) {
+        const newInputs = Object.assign({}, this.state.editFormInputs)
+        newInputs["title"] = e.target.value;
+        this.setState({
+            editFormInputs: newInputs
+        });
+    }
+
+    handleInputContentChange(e) {
+        const newInputs = Object.assign({}, this.state.editFormInputs)
+        newInputs["content"] = e.target.value;
+        this.setState({
+            editFormInputs: newInputs
+        });
+    }
+
+    handleToggleEditFormOpen() {
+        this.setState({
+           editFormOpen: !this.state.editFormOpen
+        });
     }
 
     render() {
@@ -41,7 +72,14 @@ class Post extends React.Component {
                         >
                             DETAIL
                         </Button>
-                        <Button size="small" variant="contained" color="primary">EDIT</Button>
+                        <Button
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleToggleEditFormOpen}
+                        >
+                            EDIT
+                        </Button>
                         <Button
                             size="small"
                             variant="contained"
@@ -59,6 +97,14 @@ class Post extends React.Component {
                     onClose={this.handleToggleModalOpen}
                     onDelete={this.props.onDelete}
                 />
+                {this.state.editFormOpen &&
+                <EditForm
+                    post={this.props.post}
+                    inputs={this.state.editFormInputs}
+                    onChangeTitle={this.handleInputTitleChange}
+                    onChangeContent={this.handleInputContentChange}
+                />
+                }
             </div>
         );
     }
