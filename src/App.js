@@ -14,8 +14,7 @@ class App extends React.Component {
             },
             posts: [],
         }
-        this.handleInputTitleChange = this.handleInputTitleChange.bind(this);
-        this.handleInputContentChange = this.handleInputContentChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handlePostSubmit = this.handlePostSubmit.bind(this);
         this.handlePostDelete = this.handlePostDelete.bind(this);
         this.handlePostUpdate = this.handlePostUpdate.bind(this);
@@ -46,19 +45,12 @@ class App extends React.Component {
             });
     }
 
-    handleInputTitleChange(e) {
+    handleInputChange(itemName, e) {
         const newInputs = Object.assign({}, this.state.createFormInputs)
-        newInputs["title"] = e.target.value;
-        this.setState({
-            createFormInputs: newInputs
-        });
-    }
+        newInputs[itemName] = e.target.value;
 
-    handleInputContentChange(e) {
-        const newInputs = Object.assign({}, this.state.createFormInputs)
-        newInputs["content"] = e.target.value;
         this.setState({
-            createFormInputs: newInputs
+           createFormInputs: newInputs
         });
     }
 
@@ -135,8 +127,7 @@ class App extends React.Component {
                 <Box p={5}>
                     <CreateForm
                         inputs={this.state.createFormInputs}
-                        onChangeTitle={this.handleInputTitleChange}
-                        onChangeContent={this.handleInputContentChange}
+                        onChange={this.handleInputChange}
                         onSubmit={this.handlePostSubmit}
                     />
                     <Box p={3}>

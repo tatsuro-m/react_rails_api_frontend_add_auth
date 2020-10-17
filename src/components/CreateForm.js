@@ -10,13 +10,13 @@ function CreateForm(props) {
                 label="title"
                 id="title"
                 value={props.inputs["title"]}
-                onChange={props.onChangeTitle}
+                onChange={(e) => props.onChange("title", e)}
             />
             <TextField
                 label="content"
                 id="content"
                 value={props.inputs["content"]}
-                onChange={props.onChangeContent}
+                onChange={(e) => props.onChange("content", e)}
             />
             <Button
                 variant="contained"
