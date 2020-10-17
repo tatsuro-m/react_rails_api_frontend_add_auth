@@ -12,17 +12,15 @@ function EditForm(props) {
                     <Grid item xs={6}>
                         <TextField
                             label="title"
-                            id="title"
                             value={props.inputs["title"]}
-                            onChange={props.onChangeTitle}
+                            onChange={(e) => props.onChange("title", e)}
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
                             label="content"
-                            id="content"
                             value={props.inputs["content"]}
-                            onChange={props.onChangeContent}
+                            onChange={(e) => props.onChange("content", e)}
                         />
                     </Grid>
                     <Box mt={2}>

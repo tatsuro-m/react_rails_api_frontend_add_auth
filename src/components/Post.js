@@ -21,8 +21,7 @@ class Post extends React.Component {
         }
         this.handleToggleModalOpen = this.handleToggleModalOpen.bind(this);
         this.handleToggleEditFormOpen = this.handleToggleEditFormOpen.bind(this);
-        this.handleInputTitleChange = this.handleInputTitleChange.bind(this);
-        this.handleInputContentChange = this.handleInputContentChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
 
@@ -30,17 +29,9 @@ class Post extends React.Component {
         this.setState({modalOpen: !this.state.modalOpen});
     }
 
-    handleInputTitleChange(e) {
-        const newInputs = Object.assign({}, this.state.editFormInputs)
-        newInputs["title"] = e.target.value;
-        this.setState({
-            editFormInputs: newInputs
-        });
-    }
-
-    handleInputContentChange(e) {
-        const newInputs = Object.assign({}, this.state.editFormInputs)
-        newInputs["content"] = e.target.value;
+    handleInputChange(itemName, e) {
+        const newInputs = Object.assign({}, this.state.editFormInputs);
+        newInputs[itemName] = e.target.value;
         this.setState({
             editFormInputs: newInputs
         });
@@ -101,8 +92,7 @@ class Post extends React.Component {
                 <EditForm
                     post={this.props.post}
                     inputs={this.state.editFormInputs}
-                    onChangeTitle={this.handleInputTitleChange}
-                    onChangeContent={this.handleInputContentChange}
+                    onChange={this.handleInputChange}
                     onSubmit={this.props.onUpdate}
                 />
                 }
