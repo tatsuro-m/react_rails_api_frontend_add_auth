@@ -31,6 +31,7 @@ function EditForm(props) {
                                 variant="contained"
                                 color="primary"
                                 endIcon={<SendIcon/>}
+                                onClick={(e) => props.onSubmit(props.post.id, props.inputs, e)}
                             >
                                 UPDATE
                             </Button>

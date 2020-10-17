@@ -48,7 +48,7 @@ class Post extends React.Component {
 
     handleToggleEditFormOpen() {
         this.setState({
-           editFormOpen: !this.state.editFormOpen
+            editFormOpen: !this.state.editFormOpen
         });
     }
 
@@ -103,6 +103,7 @@ class Post extends React.Component {
                     inputs={this.state.editFormInputs}
                     onChangeTitle={this.handleInputTitleChange}
                     onChangeContent={this.handleInputContentChange}
+                    onSubmit={this.props.onUpdate}
                 />
                 }
             </div>
