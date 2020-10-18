@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import PostList from "./components/PostList";
 import Box from "@material-ui/core/Box";
 import CreateForm from "./components/CreateForm";
+import Grid from "@material-ui/core/Grid";
+import Post from "./components/Post";
 
 class App extends React.Component {
     constructor(props) {
@@ -50,7 +51,7 @@ class App extends React.Component {
         newInputs[itemName] = e.target.value;
 
         this.setState({
-           createFormInputs: newInputs
+            createFormInputs: newInputs
         });
     }
 
@@ -121,6 +122,21 @@ class App extends React.Component {
         }
     }
 
+    getPosts() {
+        return (
+            this.state.posts.map((post) => {
+                return (
+                    <Grid item xs={4} key={post.id}>
+                        <Post
+                            post={post}
+                            onDelete={this.handlePostDelete}
+                            onUpdate={this.handlePostUpdate}
+                        />
+                    </Grid>);
+            })
+        );
+    }
+
     render() {
         return (
             <div className="App">
@@ -131,11 +147,9 @@ class App extends React.Component {
                         onSubmit={this.handlePostSubmit}
                     />
                     <Box p={3}>
-                        <PostList
-                            posts={this.state.posts}
-                            onDelete={this.handlePostDelete}
-                            onUpdate={this.handlePostUpdate}
-                        />
+                        <Grid container spacing={4}>
+                            {this.getPosts()}
+                        </Grid>
                     </Box>
                 </Box>
             </div>
