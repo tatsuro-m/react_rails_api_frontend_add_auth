@@ -87,6 +87,7 @@ class Post extends React.Component {
                     open={this.state.modalOpen}
                     onClose={this.handleToggleModalOpen}
                     onDelete={this.props.onDelete}
+                    onEditClick={this.handleToggleEditFormOpen}
                 />
                 {this.state.editFormOpen &&
                 <EditForm

@@ -48,6 +48,10 @@ function PostModal(props) {
                         size="small"
                         variant="contained"
                         color="primary"
+                        onClick={() => {
+                            props.onEditClick();
+                            props.onClose();
+                        }}
                     >
                         EDIT
                     </Button>

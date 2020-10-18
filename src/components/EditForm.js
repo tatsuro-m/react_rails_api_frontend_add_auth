@@ -13,6 +13,7 @@ function EditForm(props) {
                         <TextField
                             label="title"
                             value={props.inputs["title"]}
+                            autoFocus={true}
                             onChange={(e) => props.onChange("title", e)}
                         />
                     </Grid>
