@@ -9,22 +9,24 @@ function EditForm(props) {
         <Box mt={3}>
             <form>
                 <Grid container>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <TextField
                             label="title"
                             value={props.inputs["title"]}
                             onChange={(e) => props.onChange("title", e)}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <TextField
                             label="content"
                             value={props.inputs["content"]}
+                            fullWidth
+                            multiline
                             onChange={(e) => props.onChange("content", e)}
                         />
                     </Grid>
-                    <Box mt={2}>
-                        <Grid item xs={6}>
+                    <Grid item xs={12}>
+                        <Box mt={2}>
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -33,8 +35,8 @@ function EditForm(props) {
                             >
                                 UPDATE
                             </Button>
-                        </Grid>
-                    </Box>
+                        </Box>
+                    </Grid>
                 </Grid>
             </form>
         </Box>
