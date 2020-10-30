@@ -1,5 +1,5 @@
 import React from "react";
-import {CognitoUserPool} from "amazon-cognito-identity-js";
+import { CognitoUserPool } from "amazon-cognito-identity-js";
 import awsConfiguration from "../awsConfiguration";
 import Button from "@material-ui/core/Button";
 
@@ -10,17 +10,16 @@ export default class SignOut extends React.Component {
   }
 
   get userPool() {
-    return (
-      new CognitoUserPool({
-        UserPoolId: awsConfiguration.UserPoolId,
-        ClientId: awsConfiguration.ClientId,
-      }));
+    return new CognitoUserPool({
+      UserPoolId: awsConfiguration.UserPoolId,
+      ClientId: awsConfiguration.ClientId,
+    });
   }
 
   signOut() {
-    const cognitoUser = this.userPool.getCurrentUser()
+    const cognitoUser = this.userPool.getCurrentUser();
     if (cognitoUser) {
-      cognitoUser.signOut()
+      cognitoUser.signOut();
       localStorage.clear();
       this.props.onSignOut();
     } else {
@@ -30,13 +29,9 @@ export default class SignOut extends React.Component {
 
   render() {
     return (
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={this.signOut}
-      >
+      <Button variant="contained" color="secondary" onClick={this.signOut}>
         SignOut
       </Button>
-    )
+    );
   }
 }

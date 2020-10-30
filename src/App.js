@@ -1,12 +1,12 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import Box from "@material-ui/core/Box";
 import CreateForm from "./components/CreateForm";
 import Grid from "@material-ui/core/Grid";
 import Post from "./components/Post";
 import SignIn from "./auth/SignIn";
 import SignOut from "./auth/SignOut";
-import {CognitoUserPool} from "amazon-cognito-identity-js";
+import { CognitoUserPool } from "amazon-cognito-identity-js";
 import awsConfiguration from "./awsConfiguration";
 
 class App extends React.Component {
@@ -19,7 +19,7 @@ class App extends React.Component {
       },
       posts: [],
       currentUser: this.userPool.getCurrentUser(),
-    }
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handlePostSubmit = this.handlePostSubmit.bind(this);
     this.handlePostDelete = this.handlePostDelete.bind(this);
@@ -29,55 +29,54 @@ class App extends React.Component {
   }
 
   get axios() {
-    const axiosBase = require('axios');
+    const axiosBase = require("axios");
     return axiosBase.create({
       baseURL: process.env.REACT_APP_DEV_API_URL,
       headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
       },
-      responseType: 'json'
+      responseType: "json",
     });
   }
 
   get userPool() {
-    return (
-      new CognitoUserPool({
-        UserPoolId: awsConfiguration.UserPoolId,
-        ClientId: awsConfiguration.ClientId,
-      })
-    );
+    return new CognitoUserPool({
+      UserPoolId: awsConfiguration.UserPoolId,
+      ClientId: awsConfiguration.ClientId,
+    });
   }
 
   componentDidMount() {
     if (this.state.currentUser) {
-      this.axios.get('/posts')
-        .then(results => {
+      this.axios
+        .get("/posts")
+        .then((results) => {
           console.log(results);
           this.setState({
-            posts: results.data
+            posts: results.data,
           });
         })
-        .catch(data => {
+        .catch((data) => {
           console.log(data);
         });
     }
   }
 
   handleSignInSuccess() {
-    this.setState({currentUser: true});
+    this.setState({ currentUser: true });
   }
 
   handleSignOut() {
-    this.setState({currentUser: false});
+    this.setState({ currentUser: false });
   }
 
   handleInputChange(itemName, e) {
-    const newInputs = Object.assign({}, this.state.createFormInputs)
+    const newInputs = Object.assign({}, this.state.createFormInputs);
     newInputs[itemName] = e.target.value;
 
     this.setState({
-      createFormInputs: newInputs
+      createFormInputs: newInputs,
     });
   }
 
@@ -85,11 +84,12 @@ class App extends React.Component {
     e.preventDefault();
     const inputValues = Object.values(this.state.createFormInputs);
 
-    if (inputValues.every(value => value)) {
-      this.axios.post("/posts", {
-        post: this.state.createFormInputs,
-      })
-        .then(res => {
+    if (inputValues.every((value) => value)) {
+      this.axios
+        .post("/posts", {
+          post: this.state.createFormInputs,
+        })
+        .then((res) => {
           const posts = this.state.posts.slice();
           posts.push(res["data"]);
           this.setState({
@@ -100,27 +100,28 @@ class App extends React.Component {
             },
           });
         })
-        .catch(data => {
-          console.log(data)
+        .catch((data) => {
+          console.log(data);
         });
     }
   }
 
   handlePostDelete(id, e) {
     e.preventDefault();
-    this.axios.delete(`/posts/${id}`)
-      .then(res => {
-        const targetIndex = this.state.posts.findIndex(post => {
-          return post["id"] === res["data"]["id"]
+    this.axios
+      .delete(`/posts/${id}`)
+      .then((res) => {
+        const targetIndex = this.state.posts.findIndex((post) => {
+          return post["id"] === res["data"]["id"];
         });
         const posts = this.state.posts.slice();
         posts.splice(targetIndex, 1);
 
         this.setState({
-          posts: posts
+          posts: posts,
         });
       })
-      .catch(data => {
+      .catch((data) => {
         console.log(data);
       });
   }
@@ -129,38 +130,38 @@ class App extends React.Component {
     e.preventDefault();
     const inputValues = Object.values(inputs);
 
-    if (inputValues.every(value => value)) {
-      this.axios.patch(`/posts/${id}`, {
-        post: inputs
-      })
-        .then(results => {
+    if (inputValues.every((value) => value)) {
+      this.axios
+        .patch(`/posts/${id}`, {
+          post: inputs,
+        })
+        .then((results) => {
           const posts = this.state.posts.slice();
-          const index = posts.findIndex(post => post["id"] === id);
+          const index = posts.findIndex((post) => post["id"] === id);
           posts.splice(index, 1, results["data"]);
 
           this.setState({
-            posts: posts
+            posts: posts,
           });
         })
-        .catch(data => {
+        .catch((data) => {
           console.log(data);
         });
     }
   }
 
   getPosts() {
-    return (
-      this.state.posts.map((post) => {
-        return (
-          <Grid item xs={4} key={post.id}>
-            <Post
-              post={post}
-              onDelete={this.handlePostDelete}
-              onUpdate={this.handlePostUpdate}
-            />
-          </Grid>);
-      })
-    );
+    return this.state.posts.map((post) => {
+      return (
+        <Grid item xs={4} key={post.id}>
+          <Post
+            post={post}
+            onDelete={this.handlePostDelete}
+            onUpdate={this.handlePostUpdate}
+          />
+        </Grid>
+      );
+    });
   }
 
   render() {
@@ -168,13 +169,11 @@ class App extends React.Component {
       return (
         <div className="App">
           <Grid container>
-            <Grid item xs={4}/>
-            <Grid item xs={4}/>
+            <Grid item xs={4} />
+            <Grid item xs={4} />
             <Grid item xs={4}>
               <Box m={3}>
-                <SignOut
-                  onSignOut={this.handleSignOut}
-                />
+                <SignOut onSignOut={this.handleSignOut} />
               </Box>
             </Grid>
           </Grid>
@@ -191,15 +190,13 @@ class App extends React.Component {
             </Box>
           </Box>
         </div>
-      )
+      );
     } else {
       return (
         <div className="App">
-          <SignIn
-            onSuccess={this.handleSignInSuccess}
-          />
+          <SignIn onSuccess={this.handleSignInSuccess} />
         </div>
-      )
+      );
     }
   }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import {
   CognitoUserPool,
   CognitoUser,
-  AuthenticationDetails
+  AuthenticationDetails,
 } from "amazon-cognito-identity-js";
 import awsConfiguration from "../awsConfiguration";
 import Grid from "@material-ui/core/Grid";
@@ -10,8 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import SignUp from "./SignUp";
-import {Alert} from "@material-ui/lab";
-
+import { Alert } from "@material-ui/lab";
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ export default class SignIn extends React.Component {
       password: "",
       signUpOpen: false,
       error: false,
-    }
+    };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSignUpOpen = this.handleSignUpOpen.bind(this);
@@ -30,28 +29,26 @@ export default class SignIn extends React.Component {
   }
 
   get userPool() {
-    return (
-      new CognitoUserPool({
-        UserPoolId: awsConfiguration.UserPoolId,
-        ClientId: awsConfiguration.ClientId,
-      })
-    );
+    return new CognitoUserPool({
+      UserPoolId: awsConfiguration.UserPoolId,
+      ClientId: awsConfiguration.ClientId,
+    });
   }
 
   handleEmailChange(e) {
-    this.setState({email: e.target.value})
+    this.setState({ email: e.target.value });
   }
 
   handlePasswordChange(e) {
-    this.setState({password: e.target.value})
+    this.setState({ password: e.target.value });
   }
 
   handleSignUpOpen() {
-    this.setState({signUpOpen: true})
+    this.setState({ signUpOpen: true });
   }
 
   handleSignUpClose() {
-    this.setState({signUpOpen: false})
+    this.setState({ signUpOpen: false });
   }
 
   signIn() {
@@ -69,25 +66,23 @@ export default class SignIn extends React.Component {
       onSuccess: () => {
         this.props.onSuccess();
       },
-      onFailure: (() => {
-        this.setState({error: true})
-      })
+      onFailure: () => {
+        this.setState({ error: true });
+      },
     });
   }
 
   render() {
     if (this.state.signUpOpen) {
-      return (
-        <SignUp
-          onClose={this.handleSignUpClose}
-        />
-      )
+      return <SignUp onClose={this.handleSignUpClose} />;
     } else {
       return (
         <div>
-          {this.state.error &&
-          <Alert severity="error">メールアドレスかパスワードが間違っています。</Alert>
-          }
+          {this.state.error && (
+            <Alert severity="error">
+              メールアドレスかパスワードが間違っています。
+            </Alert>
+          )}
           <form>
             <Grid container>
               <Grid item xs={12}>
@@ -96,7 +91,7 @@ export default class SignIn extends React.Component {
             </Grid>
 
             <Grid container>
-              <Grid item xs={2}/>
+              <Grid item xs={2} />
               <Grid item xs={8}>
                 <TextField
                   label="email"
@@ -106,9 +101,9 @@ export default class SignIn extends React.Component {
                   onChange={this.handleEmailChange}
                 />
               </Grid>
-              <Grid item xs={2}/>
+              <Grid item xs={2} />
 
-              <Grid item xs={2}/>
+              <Grid item xs={2} />
               <Grid item xs={8}>
                 <TextField
                   label="password"
@@ -118,7 +113,7 @@ export default class SignIn extends React.Component {
                   onChange={this.handlePasswordChange}
                 />
               </Grid>
-              <Grid item xs={2}/>
+              <Grid item xs={2} />
 
               <Grid item xs={12}>
                 <Box mt={5}>
@@ -146,7 +141,7 @@ export default class SignIn extends React.Component {
             </Grid>
           </form>
         </div>
-      )
+      );
     }
   }
 }
