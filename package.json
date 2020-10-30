@@ -18,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint" : "eslint ./",
+    "fmt": "prettier --write 'src/**/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,6 +38,9 @@
     ]
   },
   "devDependencies": {
-    "amazon-cognito-identity-js": "^4.5.0"
+    "amazon-cognito-identity-js": "^4.5.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "prettier": "^2.1.2"
   }
 }
